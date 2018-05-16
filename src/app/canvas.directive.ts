@@ -66,14 +66,18 @@ export class CanvasDirective implements AfterViewInit {
 
   @HostListener('mouseup')
   onMouseUp() {
-    this.isPainting = false;
-    this.makeRequest();
+    if (this.isPainting) {
+      this.isPainting = false;
+      this.makeRequest();
+    }
   }
 
   @HostListener('mouseleave')
   onmouseleave() {
-    this.isPainting = false;
-    this.makeRequest();
+    if (this.isPainting) {
+      this.isPainting = false;
+      this.makeRequest();
+    }
   }
 
   @HostBinding('style.background') background = 'black';
