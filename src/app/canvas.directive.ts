@@ -9,6 +9,11 @@ import { v4 } from 'uuid';
 import { HttpClient } from '@angular/common/http';
 import { PusherService } from './pusher.service';
 
+declare interface Position {
+  offsetX: number;
+  offsetY: number;
+}
+
 @Directive({
   selector: '[myCanvas]',
 })
@@ -36,7 +41,7 @@ export class CanvasDirective implements AfterViewInit {
   };
   line = [];
   userId = v4();
-  prevPos = {
+  prevPos: Position = {
     offsetX: 0,
     offsetY: 0,
   };
@@ -93,7 +98,11 @@ export class CanvasDirective implements AfterViewInit {
       });
   }
 
-  draw({ offsetX: x, offsetY: y }, { offsetX, offsetY }, strokeStyle) {
+  draw(
+    { offsetX: x, offsetY: y }: Position,
+    { offsetX, offsetY }: Position,
+    strokeStyle
+  ) {
     this.ctx.beginPath();
     this.ctx.strokeStyle = strokeStyle;
     this.ctx.moveTo(x, y);
